@@ -1,11 +1,37 @@
-# General helper functions that don't fall into a particular category
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Functions and classes that fall within the Python standard library.
+"""
 
+import re
 from collections.abc import Iterable
+
+def camel_to_snake(inp_str):
+    """
+    Converts a string from camel case to snake case (Ex TestVar => test_var).
+    See the following for the full stackoverflow page:
+        https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
+
+    Parameters
+    ----------
+    inp_str : str
+        The inputted string that is in camel case.
+
+    Returns
+    -------
+    str : str
+        Inputted string in snake case.
+    """
+    res_str = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', inp_str)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', res_str).lower()
 
 def as_list(obj, length=None, tp=None):
     """
     Force an argument to be a list, optionally of a given length, optionally
     with all elements cast to a given type if not None.
+    
+    Pulled from slaclab/pswalker.pswalker.utils.argutils
     """
     # If the obj is None, return empty list or fixed-length list of Nones
     if obj is None:
