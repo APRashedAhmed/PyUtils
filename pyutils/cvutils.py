@@ -25,15 +25,15 @@ def to_uint8(image, mode="clip"):
     if not isinstance(image, np.ndarray):
         image_array = np.array(image)
     else:
-        image_array = image
+        image_array = np.copy(image)
     # Clip or normalize the image
     if mode.lower() == "clip":
-        np.clip(image_array, 0, 255, out=image_array)
+        return cv2.convertScaleAbs(image_array)
     elif mode.lower() == "norm":
-        image_array *= 255/image_array.max()
-    else:
-        raise ValueError("Valid modes are 'clip' and 'norm'")
-    return image_array.astype(np.uint8)
+        type_min = np.iinfo(image_array.dtype).min
+        type_max = np.iinfo(image_array.dtype).max
+        return cv2.convertScaleAbs(image_array, alpha=255/(type_max-type_min))
+    raise ValueError("Valid modes are 'clip' and 'norm'")
 
 def rolling_average (values, window):
     weights = np.repeat(1.0, window)/window
