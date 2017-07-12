@@ -43,10 +43,3 @@ def binaryVectorization(DataFrame):
         binaryVector.iloc[i,DataFrame.iloc[i]-1] = 1
 
     return binaryVector
-
-if __name__ == "__main__":
-    integerData = GenerateMasterList("test/y_test.txt")
-    bVector = binaryVectorization(integerData)
-    WriteToWithHeader(bVector, "test/y_testVector.txt")
-    print bVector.head()
-    print bVector.shape
