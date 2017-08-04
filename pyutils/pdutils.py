@@ -10,7 +10,7 @@ def GenerateMasterList(FileDirectory):
     Reads in the file inputted and outputs it as a pandas DF. It 
     assumes there is no header row.
     """
-    return (pd.read_csv(FileDirectory, delim_whitespace = True,
+    return (pd.read_csv(FileDirectory, delim_whitespace = False,
                         header = None, index_col=None))
 
 def GenerateMasterListWithHeader(FileDirectory):
